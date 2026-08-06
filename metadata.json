@@ -1,0 +1,10 @@
+{
+  "name": "AR Math Games",
+  "description": "An interactive Bengali AR math learning platform featuring 3 games: Equation Arrangement, Integer Classification, and Quick Math using MediaPipe hand tracking with pinch gesture and mouse/touch fallback.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

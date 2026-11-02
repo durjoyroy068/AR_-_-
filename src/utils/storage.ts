@@ -1,5 +1,6 @@
 import { GameType } from '../types';
 import { toBengaliNumber } from './numberConverter';
+import { saveScoreToCloud } from './firebase';
 
 export interface PlayerProfile {
   id: string;
@@ -182,7 +183,35 @@ export function saveGameScore(entry: {
     console.error('Failed to save score to leaderboard', e);
   }
 
+  // Asynchronously sync score to Firebase Cloud Database
+  saveScoreToCloud(newEntry).catch((err) => {
+    console.warn('Notice: Background cloud score sync:', err);
+  });
+
   return newEntry;
+}
+
+export function mergeCloudLeaderboard(cloudEntries: LeaderboardEntry[]): LeaderboardEntry[] {
+  if (!cloudEntries || cloudEntries.length === 0) return getLeaderboard();
+
+  const local = getLeaderboard();
+  const map = new Map<string, LeaderboardEntry>();
+
+  // Add existing local entries
+  local.forEach((e) => map.set(e.id, e));
+  // Merge cloud entries
+  cloudEntries.forEach((e) => map.set(e.id, e));
+
+  const merged = Array.from(map.values()).sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return a.mistakes - b.mistakes;
+  });
+
+  try {
+    localStorage.setItem(LEADERBOARD_STORAGE_KEY, JSON.stringify(merged));
+  } catch (_) {}
+
+  return merged;
 }
 
 export function getPlayerLifetimeStats(playerId: string) {

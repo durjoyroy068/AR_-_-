@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GameType } from '../types';
 import { 
   getLeaderboard, 
   getPlayerLifetimeStats, 
   LeaderboardEntry, 
-  PlayerProfile 
+  PlayerProfile,
+  mergeCloudLeaderboard
 } from '../utils/storage';
+import { subscribeCloudLeaderboard } from '../utils/firebase';
 import { toBengaliNumber } from '../utils/numberConverter';
 import { sound } from '../utils/sound';
 import { 
@@ -21,7 +23,8 @@ import {
   Sparkles,
   Binary,
   Hash,
-  Calculator
+  Calculator,
+  Cloud
 } from 'lucide-react';
 
 interface DashboardModalProps {
@@ -38,10 +41,29 @@ export const DashboardModal: React.FC<DashboardModalProps> = ({
   onPlayGame,
 }) => {
   const [activeTab, setActiveTab] = useState<'all' | GameType>('all');
+  const [allEntries, setAllEntries] = useState<LeaderboardEntry[]>(() => getLeaderboard());
+  const [isCloudLive, setIsCloudLive] = useState<boolean>(true);
+
+  // Real-time synchronization with Firebase Firestore Cloud Database
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Load initial cached records
+    setAllEntries(getLeaderboard());
+
+    // Listen for live updates whenever any student anywhere saves a score
+    const unsubscribe = subscribeCloudLeaderboard((cloudEntries) => {
+      const merged = mergeCloudLeaderboard(cloudEntries);
+      setAllEntries(merged);
+      setIsCloudLive(true);
+    });
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
-
-  const allEntries = getLeaderboard();
 
   // Filter entries based on active tab
   const filteredEntries = (activeTab === 'all'
@@ -72,9 +94,13 @@ export const DashboardModal: React.FC<DashboardModalProps> = ({
                 <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 font-bold">
                   শীর্ষ তালিকা
                 </span>
+                <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-semibold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>ক্লাউড লাইভ (Firebase)</span>
+                </span>
               </h2>
               <p className="text-xs text-slate-400">
-                সকল শিক্ষার্থীর অর্জিত স্কোর, ভুলের সংখ্যা ও নির্ভুলতার পরিসংখ্যান
+                সকল শিক্ষার্থীর অর্জিত স্কোর, ভুলের সংখ্যা ও নির্ভুলতার পরিসংখ্যান (রিয়েল-টাইম সিঙ্ক)
               </p>
             </div>
           </div>

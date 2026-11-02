@@ -1,20 +1,66 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 🎮 AR গণিত শিক্ষার প্ল্যাটফর্ম (AR Math Learning Platform)
 
-# Run and deploy your AI Studio app
+একটি আধুনিক এবং ইন্টারেক্টিভ ওয়েব-ভিত্তিক অগমেন্টেড রিয়েলিটি (AR) গণিত প্ল্যাটফর্ম, যেখানে শিক্ষার্থীরা কৃত্রিম বুদ্ধিমত্তা ও কম্পিউটার ভিশন (MediaPipe) চালিত **Air Camera** এবং **হাতের জেসচার (Pinch Gesture)** ব্যবহার করে গণিত শিখতে পারে।
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/6fdda13d-e0e1-4d93-a9cc-1e5075df83ab
+## 🌟 প্রধান বৈশিষ্ট্যসমূহ (Key Features)
 
-## Run Locally
+- ✋ **Air Camera ও জেসচার কন্ট্রোল:** হাতের স্পর্শ ছাড়াই ওয়েবক্যামের সামনে আঙুল নাড়িয়ে ও চিমটি কেটে (Pinch Gesture) কার্ড সিলেক্ট, ড্র্যাগ এবং স্লটে বসানো যায়।
+- ✌️ **২-আঙুল ট্র্যাকিং (Two-Finger Tracking):** শুধুমাত্র বৃদ্ধাঙ্গুলি ও তর্জনী শনাক্তকরণ এবং স্ক্রিনে কাস্টম নিয়ন লেজার স্কেলিটন।
+- 👤 **প্লেয়ার প্রোফাইল ও রেজিস্ট্রেশন:** গেম শুরুর আগে নাম ও কাস্টম অবতার নির্বাচন।
+- 🏆 **লাইভ লিডারবোর্ড ও ড্যাশবোর্ড:** প্রতিটি গেমের স্কোর, ভুলের সংখ্যা (Mistakes) ও নির্ভুলতার শতাংশ (Accuracy) অনুযায়ী র‍্যাংকিং ও ট্রফি।
+- 🔊 **ইন্টারেক্টিভ সাউন্ড ও ভিজ্যুয়াল ইফেক্ট:** কার্ড স্ন্যাপিং, পিঞ্চ, সাফল্য ও ভুলের জন্য রিয়েল-টাইম অডিও-ভিজ্যুয়াল ফিডব্যাক।
+- 🌐 **সম্পূর্ণ বাংলা ইন্টারফেস:** প্রাথমিক ও মাধ্যমিক শিক্ষার্থীদের উপযোগী আকর্ষণীয় বাংলা ডিজাইন ও ভাষা।
 
-**Prerequisites:**  Node.js
+---
 
+## 🎯 গেমসমূহ ও লেভেল (Games & Levels)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### ১. গেম ০১: AR সমীকরণ ও লক্ষ্য (Equation & Target)
+- **লেভেল ০১ - Equation Builder (সমীকরণ তৈরি করো):** এলোমেলো কার্ড ড্র্যাগ করে সঠিক সমীকরণ তৈরি (যেমন: `৮ + ৫ = ১৩`)।
+- **লেভেল ০২ - Missing Number Challenge (হারানো সংখ্যা খুঁজে বের করো):** অসম্পূর্ণ সমীকরণের খালি ঘরে (`?`) সঠিক সংখ্যা বসানো।
+- **লেভেল ০৩ - Math Target Hunter (টার্গেট হান্টার):** ভাসমান লক্ষ্যবস্তু থেকে দ্রুত সঠিক উত্তরে পিঞ্চ বা ক্লিক।
+
+### ২. গেম ০২: AR পূর্ণসংখ্যা শ্রেণিবিন্যাস (Integer Classification)
+- ঋণাত্মক পূর্ণসংখ্যা, শূন্য (০) এবং ধনাত্মক পূর্ণসংখ্যার কার্ড সঠিক বাস্কেটে ড্রপ করে শ্রেণিবিন্যাস করা।
+
+### ৩. গেম ০৩: AR দ্রুত গণনা (Quick Math Balloon Pop)
+- সময়সীমার মধ্যে সমীকরণের সঠিক উত্তরের ভাসমান বেলুন ফুটিয়ে পয়েন্ট অর্জন।
+
+---
+
+## 🚀 লোকাল সেটআপ ও রান করার নিয়ম (How to Run Locally)
+
+### পূর্বশর্ত:
+- [Node.js](https://nodejs.org/) (v18 বা তদূর্ধ্ব)
+- আধুনিক ওয়েব ব্রাউজার (Chrome/Edge - ওয়েবক্যাম সুবিধাসহ)
+
+### ধাপসমূহ:
+1. রিপোজিটরিটি ক্লোন করুন:
+   ```bash
+   git clone https://github.com/durjoyroy068/AR_-_-.git
+   cd AR-_-
+   ```
+2. প্রয়োজনীয় ডিপেন্ডেন্সি ইনস্টল করুন:
+   ```bash
+   npm install
+   ```
+3. লোকাল ডেভেলপমেন্ট সার্ভার চালু করুন:
+   ```bash
+   npm run dev
+   ```
+4. ব্রাউজারে প্রবেশ করুন:
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+## 🛠️ ব্যবহৃত প্রযুক্তিসমূহ (Tech Stack)
+
+- **Frontend:** React 19, TypeScript, Vite
+- **Styling:** Tailwind CSS, Lucide React Icons
+- **Computer Vision & AR:** Google MediaPipe Hands, WebRTC Camera API
+- **State & Storage:** LocalStorage Persistence, Web Audio API
+
